@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="demo.magicsw.com.demo">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +18,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+
+            android:name="com.parse.APPLICATION_ID"
+            android:value="Xuh7EnP1cjHyPhnyyLoSBvVNv8jiDrJmGTm1Q87l" />
+        <meta-data
+               android:name="com.parse.CLIENT_KEY"
+            android:value="X7OjRiYvUCThtGrhhWMe7nl7gqjp57NYDmbJ2J3a" />
         <activity
             android:name=".SecondActivity"
             android:label="@string/title_activity_second"

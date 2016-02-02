@@ -3,37 +3,51 @@ package demo.magicsw.com.demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class FirstActivity extends AppCompatActivity implements View.OnClickListener {
+import com.parse.LogInCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseUser;
 
-    private Button button;
+public class FirstActivity extends AppCompatActivity {
+    private final FirstActivity THIS_CLASS = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        button = (Button) findViewById(R.id.Login);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
-        findViewById(R.id.Login).setOnClickListener(this);
-    }
+
+        Parse.enableLocalDatastore(this);
+        Parse.initialize(this);
+
+        final TextView username = (TextView) findViewById(R.id.username);
+        final TextView password = (TextView) findViewById(R.id.password);
+        Button loginButton = (Button) findViewById(R.id.Login);
+        loginButton.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                username.setCursorVisible(true);
+                username.setFocusableInTouchMode(true);
+                username.requestFocus();
+                ParseUser.logInInBackground(username.getText().toString(), password.getText().toString(), new LogInCallback() {
+                    public void done(ParseUser user, ParseException e) {
+                        if (user != null) {
+
+                                Intent intent=new Intent(FirstActivity.this,SecondActivity.class);
+                                //intent.putExtra("Details", (Serializable) ParseUser.getCurrentUser());
+                            Toast.makeText(getApplicationContext(), "Welcome to Second Activity!", Toast.LENGTH_LONG).show();
+                                startActivity(intent);
 
 
-    private void loadActivity() {
-        Log.v("Heya", "how are you");
-        Intent intent = new Intent(FirstActivity.this, SecondActivity.class);
-        startActivity(intent);
-    }
-
-
-   @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.Login:
-                loadActivity();
-                finish();
-                break;
-        }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Login failed, Try again!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 }

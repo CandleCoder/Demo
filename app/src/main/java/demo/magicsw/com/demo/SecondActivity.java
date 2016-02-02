@@ -16,6 +16,9 @@ public class SecondActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+      //  ParseUser parseObject= (ParseUser) getIntent().getSerializableExtra("Details");
+       // Log.v("User Details" , String.valueOf(parseObject));
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
